@@ -1,7 +1,7 @@
 package com.CSO2.user_identity_service.service;
 
-import com.CSO2.user_identity_service.dto.AddressDTO;
-import com.CSO2.user_identity_service.dto.AddressRequest;
+import com.CSO2.user_identity_service.dto.response.AddressDTO;
+import com.CSO2.user_identity_service.dto.request.AddressRequest;
 import com.CSO2.user_identity_service.model.Address;
 import com.CSO2.user_identity_service.model.User;
 import com.CSO2.user_identity_service.repository.AddressRepository;

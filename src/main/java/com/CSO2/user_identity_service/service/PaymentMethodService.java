@@ -1,7 +1,7 @@
 package com.CSO2.user_identity_service.service;
 
-import com.CSO2.user_identity_service.dto.PaymentMethodDTO;
-import com.CSO2.user_identity_service.dto.PaymentMethodRequest;
+import com.CSO2.user_identity_service.dto.response.PaymentMethodDTO;
+import com.CSO2.user_identity_service.dto.request.PaymentMethodRequest;
 import com.CSO2.user_identity_service.model.PaymentMethod;
 import com.CSO2.user_identity_service.model.User;
 import com.CSO2.user_identity_service.repository.PaymentMethodRepository;
