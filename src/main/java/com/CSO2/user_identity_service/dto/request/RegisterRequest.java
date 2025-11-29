@@ -1,4 +1,4 @@
-package com.CSO2.user_identity_service.dto;
+package com.CSO2.user_identity_service.dto.request;
 
 import com.CSO2.user_identity_service.model.enums.PreferredStore;
 import lombok.AllArgsConstructor;

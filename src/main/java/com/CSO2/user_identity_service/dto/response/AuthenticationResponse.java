@@ -1,4 +1,4 @@
-package com.CSO2.user_identity_service.dto;
+package com.CSO2.user_identity_service.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

@@ -1,4 +1,4 @@
-package com.CSO2.user_identity_service.dto;
+package com.CSO2.user_identity_service.dto.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,8 +9,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class AddressDTO {
-    private String id;
+public class AddressRequest {
     private String label;
     private String streetAddress;
     private String city;

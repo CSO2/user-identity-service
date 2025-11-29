@@ -1,7 +1,7 @@
 package com.CSO2.user_identity_service.controller;
 
-import com.CSO2.user_identity_service.dto.PaymentMethodDTO;
-import com.CSO2.user_identity_service.dto.PaymentMethodRequest;
+import com.CSO2.user_identity_service.dto.response.PaymentMethodDTO;
+import com.CSO2.user_identity_service.dto.request.PaymentMethodRequest;
 import com.CSO2.user_identity_service.service.PaymentMethodService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

@@ -1,10 +1,10 @@
 package com.CSO2.user_identity_service.service;
 
 import com.CSO2.user_identity_service.config.JwtUtil;
-import com.CSO2.user_identity_service.dto.AuthenticationResponse;
-import com.CSO2.user_identity_service.dto.LoginRequest;
-import com.CSO2.user_identity_service.dto.RegisterRequest;
-import com.CSO2.user_identity_service.dto.UserSummaryDTO;
+import com.CSO2.user_identity_service.dto.response.AuthenticationResponse;
+import com.CSO2.user_identity_service.dto.request.LoginRequest;
+import com.CSO2.user_identity_service.dto.request.RegisterRequest;
+import com.CSO2.user_identity_service.dto.response.UserSummaryDTO;
 import com.CSO2.user_identity_service.model.User;
 import com.CSO2.user_identity_service.model.enums.Role;
 import com.CSO2.user_identity_service.model.enums.Tier;

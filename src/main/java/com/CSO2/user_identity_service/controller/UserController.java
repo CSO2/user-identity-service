@@ -1,8 +1,8 @@
 package com.CSO2.user_identity_service.controller;
 
-import com.CSO2.user_identity_service.dto.ChangePasswordRequest;
-import com.CSO2.user_identity_service.dto.UpdateProfileRequest;
-import com.CSO2.user_identity_service.dto.UserDetailDTO;
+import com.CSO2.user_identity_service.dto.request.ChangePasswordRequest;
+import com.CSO2.user_identity_service.dto.request.UpdateProfileRequest;
+import com.CSO2.user_identity_service.dto.response.UserDetailDTO;
 import com.CSO2.user_identity_service.service.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;

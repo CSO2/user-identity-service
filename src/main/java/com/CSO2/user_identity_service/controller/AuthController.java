@@ -1,8 +1,8 @@
 package com.CSO2.user_identity_service.controller;
 
-import com.CSO2.user_identity_service.dto.AuthenticationResponse;
-import com.CSO2.user_identity_service.dto.LoginRequest;
-import com.CSO2.user_identity_service.dto.RegisterRequest;
+import com.CSO2.user_identity_service.dto.response.AuthenticationResponse;
+import com.CSO2.user_identity_service.dto.request.LoginRequest;
+import com.CSO2.user_identity_service.dto.request.RegisterRequest;
 import com.CSO2.user_identity_service.service.AuthService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
