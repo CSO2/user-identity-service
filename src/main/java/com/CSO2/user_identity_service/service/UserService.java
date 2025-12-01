@@ -40,6 +40,15 @@ public class UserService {
         return updateUser(user, req);
     }
 
+    public java.util.List<UserDetailDTO> getAllUsers() {
+        java.util.List<User> users = userRepository.findAll();
+        java.util.List<UserDetailDTO> dtos = new java.util.ArrayList<>();
+        for (User u : users) {
+            dtos.add(mapToUserDetailDTO(u));
+        }
+        return dtos;
+    }
+
     private UserDetailDTO updateUser(User user, UpdateProfileRequest req) {
         if (req.getFullName() != null) {
             user.setFullName(req.getFullName());

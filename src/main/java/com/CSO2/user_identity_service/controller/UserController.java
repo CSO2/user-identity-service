@@ -8,6 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 
 @RestController
 @RequestMapping("/api/users")
@@ -66,6 +68,15 @@ public class UserController {
         // So `userDetails.getUsername()` gives me the email.
 
         return ResponseEntity.ok(userService.getProfileByEmail(userDetails.getUsername()));
+    }
+
+    @GetMapping
+    public ResponseEntity<java.util.List<UserDetailDTO>> getAllUsers(@AuthenticationPrincipal UserDetails userDetails) {
+        boolean isAdmin = userDetails.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"));
+        if (!isAdmin) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+        }
+        return ResponseEntity.ok(userService.getAllUsers());
     }
 
     @PutMapping("/me")
