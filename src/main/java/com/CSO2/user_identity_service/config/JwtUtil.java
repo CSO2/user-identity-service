@@ -107,9 +107,15 @@ public class JwtUtil {
     }
 
     private String createToken(Map<String, Object> claims, String subject, long expiration) {
-        return Jwts.builder().setClaims(claims).setSubject(subject).setIssuedAt(new Date(System.currentTimeMillis()))
+        return Jwts.builder()
+                .setClaims(claims)
+                .setSubject(subject)
+                .setIssuer("cso2-auth")
+                .setAudience("cso2-api")
+                .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + expiration))
-                .signWith(getPrivateKey(), SignatureAlgorithm.RS256).compact();
+                .signWith(getPrivateKey(), SignatureAlgorithm.RS256)
+                .compact();
     }
 
     public Boolean validateToken(String token, UserDetails userDetails) {
