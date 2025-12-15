@@ -1,0 +1,51 @@
+# --- Spring Configuration for Vault and Database ---
+spring:
+  # 1. New Config Import Structure: Tells Spring to load properties from Vault first.
+  config:
+    import: "optional:vault://"
+
+  # 2. Vault Configuration (Using static values prevents the StackOverflowError)
+  cloud:
+    vault:
+      enabled: true
+      uri: http://localhost:8200
+      token: my-root-token
+      kv:
+        enabled: true
+        backend: kv
+        # This MUST match the secret path you created in the CLI: kv/data/cs02-app
+        default-context: cs02-app
+      authentication: TOKEN
+
+  # 3. Application Name
+  application:
+    name: cs02-app
+
+  # 4. Data Source Configuration
+  datasource:
+    # URL is static. 'localhost' is correct.
+    url: jdbc:postgresql://localhost:5432/CSO2_user_identity_service
+
+    # 5. The Secrets! These placeholders are filled by Vault at runtime.
+    username: ${db_username}
+    password: ${db_password}
+
+  # 6. JPA/Hibernate Configuration
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        # **NEW LINE ADDED: This explicitly sets the dialect, helping initialization timing**
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+# --- Other Application Properties ---
+server:
+  port: 8081
+
+# --- JWT Configuration ---
+jwt:
+  secret: ${JWT_SECRET:VerySecretJwtKeyForLocalDevelopmentChangeThis}
+  expiration: ${JWT_EXPIRATION:86400000}
+  # Make sure this line exists and is indented correctly:
+  refresh-expiration: ${JWT_REFRESH_EXPIRATION:604800000}
