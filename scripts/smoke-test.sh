@@ -10,11 +10,22 @@ echo "Starting smoke tests against $SERVICE_URL..."
 # Function to check health
 check_health() {
     local url="$1/actuator/health"
-    local response=$(curl -s -o /dev/null -w "%{http_code}" "$url")
     
-    if [ "$response" == "200" ]; then
-        return 0
+    # Get HTTP response code and body
+    local response=$(curl -s -w "\n%{http_code}" "$url")
+    local body=$(echo "$response" | sed '$d')
+    local http_code=$(echo "$response" | tail -n1)
+    
+    if [ "$http_code" == "200" ]; then
+        # Check if status is UP
+        if echo "$body" | grep -q '"status":"UP"'; then
+            return 0
+        else
+            echo "Health check returned 200 but status is not UP: $body"
+            return 1
+        fi
     else
+        echo "Health check returned HTTP $http_code"
         return 1
     fi
 }
@@ -23,10 +34,12 @@ check_health() {
 echo "Waiting for service to be up..."
 for ((i=1; i<=MAX_RETRIES; i++)); do
     if check_health "$SERVICE_URL"; then
-        echo "✅ Service is UP!"
+        echo "✅ Service is UP and healthy!"
         
-        # Verify specific status in JSON response if needed (optional enhancement)
-        # curl -s "$SERVICE_URL/actuator/health" | grep "UP"
+        # Print health details
+        echo "Health endpoint response:"
+        curl -s "$SERVICE_URL/actuator/health" | head -c 500
+        echo ""
         
         exit 0
     fi
@@ -35,4 +48,6 @@ for ((i=1; i<=MAX_RETRIES; i++)); do
 done
 
 echo "❌ Service failed to start within timeout."
+echo "Final health check attempt:"
+curl -s "$SERVICE_URL/actuator/health" || echo "Could not reach service"
 exit 1
