@@ -38,7 +38,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: mvn -B clean verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=<INSERT_PROJECT_KEY> -Dsonar.organization=<INSERT_ORGANIZATION_KEY> -Dsonar.host.url=https://sonarcloud.io -DskipTests
+        run: mvn -B clean verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=CSO2_user-identity-service -Dsonar.organization=cso2 -Dsonar.host.url=https://sonarcloud.io -DskipTests
 
       - name: Extract branch name
         id: branch
