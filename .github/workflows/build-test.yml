@@ -79,6 +79,38 @@ jobs:
           vuln-type: 'os,library'
           severity: 'CRITICAL,HIGH' # Only fail on Critical and High issues
 
+      # --- NEW STEP: Run Smoke Tests ---
+      - name: Start Services and Run Smoke Tests
+        run: |
+          # Create a network
+          docker network create smoke-test-net
+
+          # Start Postgres
+          docker run -d --name postgres --network smoke-test-net \
+            -e POSTGRES_USER=cso2 -e POSTGRES_PASSWORD=password123 -e POSTGRES_DB=CSO2_user_identity_service \
+            postgres:15-alpine
+
+          # Wait a bit for Postgres
+          sleep 10
+
+          # Start App
+          docker run -d --name app --network smoke-test-net \
+            -e SERVER_PORT=8080 \
+            -e DATABASE_URL=jdbc:postgresql://postgres:5432/CSO2_user_identity_service \
+            -e DATABASE_USERNAME=cso2 \
+            -e DATABASE_PASSWORD=password123 \
+            -p 8080:8080 \
+            local-image-scan:latest
+
+          # Run smoke test script
+          chmod +x ./scripts/smoke-test.sh
+          ./scripts/smoke-test.sh http://localhost:8080
+
+          # Cleanup
+          docker stop app postgres
+          docker rm app postgres
+          docker network rm smoke-test-net
+
       - name: Log in to GHCR
         uses: docker/login-action@v3
         with:
